@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'http://repo.extendedclip.com/content/repositories/placeholderapi' }
+    maven { url 'http://repo.onarandombox.com/content/groups/public' }
+    maven { url 'https://jitpack.io' }
+}
+
+group 'com.rabbitown'
+version '1.0.0-alpha.1'
+
+dependencies {
+    implementation 'me.clip:placeholderapi:2.10.6'
+    implementation 'com.github.Yallage:YaLib:-SNAPSHOT'
+
+    implementation fileTree('libs')
+
+    implementation 'com.google.code.findbugs:annotations:3.0.1'
+    implementation 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'plugin.yml' expand 'version': project.version
+    }
+}
