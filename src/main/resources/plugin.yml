@@ -6,11 +6,6 @@ author: Yoooooory
 description: Maybe an easy plugin to create a quest.
 softdepend: [PlaceholderAPI, YaLib]
 
-commands:
-  yaquest:
-    aliases: [yq, quest]
-    description: YaQuest commands.
-
 permissions:
   yaquest.admin:
     description: YaQuest admin permission.
