@@ -1,0 +1,35 @@
+# skins.yml
+# You can customize the conversation skin according to your own preferences!
+# Switch skin at >> config.yml - conversation.skin
+
+fallback: default
+skins:
+  default:
+    template: '\n§f§l{owner} §8» {text} {choice}\n'
+    text:
+      each-line-start: ''
+      auto-line-chars: -1 # means disabled.
+    choice:
+      each-line-start: ''
+      message:
+        button:
+          text: 'locale::conversation.next-message-show'
+          hover-text: 'locale::conversation.next-message-show-hover'
+      pointer:
+        button:
+          text: '\n{0}. {1}'
+          hover-text: 'locale::conversation.next-choice-show-hover'
+
+  # This is a skin imitating Origin Realms.
+  # Variables in prompts can be used.
+  origin:
+    template: |-
+      {var::image}
+                        {var::chat} {owner}
+      {text} {choice}
+    text:
+      each-line-start: '      '
+    fallback:
+      variables:
+        chat: '?'
+        image: '?'

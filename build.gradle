@@ -6,7 +6,7 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 
     maven { url 'http://yallage.nanokylin.com:1168/snapshots' }
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
@@ -17,8 +17,7 @@ version '1.0.0-alpha.1'
 
 dependencies {
     implementation 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
-    implementation 'com.rabbitown:YaLib:1.0.0-alpha.11'
-
+    implementation 'com.rabbitown:YaLib:1.0.0-alpha.19'
 
     implementation fileTree('libs')
 

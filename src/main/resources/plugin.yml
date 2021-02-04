@@ -4,13 +4,14 @@ version: ${version}
 api-version: 1.13
 author: Yoooooory
 description: Maybe an easy plugin to create a quest.
-softdepend: [PlaceholderAPI, YaLib]
+website: https://github.com/Yallage/YaQuest
+
+depend: [YaLib]
+softdepend: [PlaceholderAPI]
 
 permissions:
   yaquest.admin:
     description: YaQuest admin permission.
     children:
-      yachat.admin.create: true
-      yachat.admin.modify: true
-      yachat.admin.delete: true
+      yaquest.admin.reload: true
     default: op

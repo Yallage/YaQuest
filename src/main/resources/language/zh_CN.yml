@@ -1,1 +1,12 @@
 prefix: '§8[§eYaQuest§8] §7'
+conversation:
+  end: '§a对话已结束.'
+  too-fast: '§c旅行者， 说话可以慢点哦.'
+  invalid-input: '§c输入无效， 请重试.'
+  unknown-owner: '未知'
+  next-message: '继续'
+  next-message-show: ' §6§l继续 »'
+  next-message-show-hover: '§a点击以继续'
+  next-choice-show-hover: '§a点击选择'
+  cancel-via-disable: '§c插件被禁用， 您的对话已取消.'
+  not-in: '§c您不在对话当中哦.'

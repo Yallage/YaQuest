@@ -1,0 +1,20 @@
+owner: Unknown
+first: greet
+prompts:
+  greet:
+    image: 'ꌍ'
+    messages:
+      - 'Hello!'
+      - 'This is the 2nd message!'
+    pointers:
+      - choice: 'I can''t hear you~'
+        pointer: greet
+      - bye
+  bye:
+    choice: 'Goodbye.'
+    message: 'Bye.'
+
+fallback:
+  variables:
+    chat: '?'
+    image: '?'

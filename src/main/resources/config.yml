@@ -1,0 +1,8 @@
+# config.yml
+# Edit configurations of YaQuest!
+# Our wiki here: https://yallage.github.io/YaWiki/#/zh-cn/doc/YaQuest/home
+
+conversation:
+  # More info at skins.yml
+  skin: default
+  timeout: 600 # seconds
