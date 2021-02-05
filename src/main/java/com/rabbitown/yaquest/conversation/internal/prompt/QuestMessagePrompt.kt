@@ -13,10 +13,11 @@ import org.bukkit.entity.Player
  * @author Yoooooory
  */
 class QuestMessagePrompt(
-    message: JSONText,
+    owner: String,
+    message: String,
     val next: QuestPrompt,
     variables: Map<String, TypedValue>
-) : AbstractQuestPrompt(message, variables) {
+) : AbstractQuestPrompt(owner, message, variables) {
 
     override fun showPrompt(context: ConversationContext) {
         val player = context.forWhom as Player

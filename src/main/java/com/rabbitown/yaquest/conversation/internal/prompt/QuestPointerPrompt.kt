@@ -13,10 +13,11 @@ import org.bukkit.entity.Player
  * @author Yoooooory
  */
 open class QuestPointerPrompt(
-    message: JSONText,
+    owner: String,
+    message: String,
     val pointers: List<QuestPointer>,
     variables: Map<String, TypedValue>
-) : AbstractQuestPrompt(message, variables) {
+) : AbstractQuestPrompt(owner, message, variables) {
 
     override fun blocksForInput(context: ConversationContext) = pointers.isNotEmpty()
 

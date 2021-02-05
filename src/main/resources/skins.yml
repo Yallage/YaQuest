@@ -5,12 +5,14 @@
 fallback: default
 skins:
   default:
-    template: '\n§f§l{owner} §8» {text} {choice}\n'
+    template: '\n{owner} §8» {text}\n'
+    owner: '§f§l{0}'
     text:
       each-line-start: ''
+      at-least-line: 0
       auto-line-chars: -1 # means disabled.
+      after: ' '
     choice:
-      each-line-start: ''
       message:
         button:
           text: 'locale::conversation.next-message-show'
@@ -21,15 +23,21 @@ skins:
           hover-text: 'locale::conversation.next-choice-show-hover'
 
   # This is a skin imitating Origin Realms.
-  # Variables in prompts can be used.
+  # INTERNAL TEST ONLY
   origin:
     template: |-
-      {var::image}
-                        {var::chat} {owner}
-      {text} {choice}
+      ꌁ{var::image}
+      ꢔ {owner}
+
+      {text}
+    owner: '§l{0}'
     text:
-      each-line-start: '      '
+      each-line-start: '§7'
+      at-least-line: 4
+    choice:
+      pointer:
+        button:
+          text: '\n{0}. {1}'
     fallback:
       variables:
-        chat: '?'
         image: '?'

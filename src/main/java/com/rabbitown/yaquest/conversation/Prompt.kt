@@ -16,7 +16,7 @@ import org.bukkit.configuration.ConfigurationSection
  * @author Yoooooory
  */
 class Prompt(
-    val name: String,
+    val owner: String,
     val choice: String?,
     val messages: List<String>,
     val pointers: List<QuestPointer>,
@@ -24,18 +24,19 @@ class Prompt(
 ) {
 
     fun toQuestPrompt(): QuestPrompt {
-        var last: QuestPrompt = QuestPointerPrompt(JSONText(PlainTextElement(messages.last())), pointers, variables)
+        var last: QuestPrompt = QuestPointerPrompt(owner, messages.last(), pointers, variables)
         for (i in messages.size - 2 downTo 0) {
             val message = messages[i]
-            last = QuestMessagePrompt(JSONText(PlainTextElement(message)), last, variables)
+            last = QuestMessagePrompt(owner, message, last, variables)
         }
         return last
     }
 
     companion object {
-        fun parseConfig(config: ConfigurationSection, fallbackVariables: Map<String, TypedValue>): Prompt {
+        fun parseConfig(config: ConfigurationSection, fallbackOwner: String, fallbackVariables: Map<String, TypedValue>): Prompt {
             val name = config.name
             val choice = config.getString("choice")
+            val owner = config.getString("owner") ?: fallbackOwner
             val messages = config.let {
                 when {
                     it.contains("message") -> listOf(it.getString("message")!!)
@@ -46,7 +47,7 @@ class Prompt(
             val pointers = config.getList("pointers")?.map { QuestPointer.parseObject(it!!, config.parent!!) } ?: emptyList()
             val variables = ConversationSkin.CURRENT.getRequiredVariables()
                 .map { it to (config.getString(it)?.toTypedValue("text") ?: fallbackVariables[it]!!) }.toMap()
-            return Prompt(name, choice, messages, pointers, variables)
+            return Prompt(owner, choice, messages, pointers, variables)
         }
     }
 

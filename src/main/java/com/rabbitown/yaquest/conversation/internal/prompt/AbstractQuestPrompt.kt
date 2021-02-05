@@ -12,7 +12,8 @@ import org.bukkit.entity.Player
  * @author Yoooooory
  */
 abstract class AbstractQuestPrompt(
-    val message: JSONText,
+    val owner: String,
+    val message: String,
     val variables: Map<String, TypedValue>
 ) : QuestPrompt {
 

@@ -2,7 +2,6 @@ package com.rabbitown.yaquest.conversation
 
 import com.rabbitown.yalib.module.locale.YLocale
 import com.rabbitown.yaquest.TypedValue.Companion.toTypedValue
-import com.rabbitown.yaquest.common.Config
 import com.rabbitown.yaquest.conversation.internal.QuestConversation
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
@@ -28,8 +27,6 @@ class Conversation(
 
     fun getFirstPrompt() = prompts[firstPrompt]!!.toQuestPrompt()
 
-    fun getPrefix() = Config.getConversationPrefix(owner)
-
     companion object {
 
         val OBJECT = object {}
@@ -38,7 +35,7 @@ class Conversation(
 
         fun parseFile(reader: Reader): Conversation {
             val config = YamlConfiguration.loadConfiguration(reader)
-            val from = config.getString("from") ?: YLocale.getConsoleMessage("conversation.unknown-owner")!!
+            val owner = config.getString("owner") ?: YLocale.getConsoleMessage("conversation.unknown-owner")!!
             val firstPrompt = config.getString("first")!!
 
             val fallbackVarSection = config.getConfigurationSection("fallback.variables")
@@ -46,10 +43,10 @@ class Conversation(
                 .map { it to (fallbackVarSection!!.getString(it)?.toTypedValue("text") ?: ConversationSkin.CURRENT.fallbackVariables[it]!!) }.toMap()
             val promptSection = config.getConfigurationSection("prompts")!!
             val prompts = promptSection.getKeys(false)
-                .map { it to Prompt.parseConfig(promptSection.getConfigurationSection(it)!!, fallbackVariables) }.toMap()
+                .map { it to Prompt.parseConfig(promptSection.getConfigurationSection(it)!!, owner, fallbackVariables) }.toMap()
             if (firstPrompt !in prompts) error("First prompt $firstPrompt not found.")
 
-            return Conversation(from, firstPrompt, prompts)
+            return Conversation(owner, firstPrompt, prompts)
         }
 
     }
