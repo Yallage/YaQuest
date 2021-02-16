@@ -36,11 +36,11 @@ class YaQuest : JavaPlugin(), I18NPlugin {
 
     override fun onDisable() {
         Logger.info("难道是，天意如此……")
-        ConversationManager.runningConversations.forEach {
+        ConversationManager.runningConversations.removeIf {
             it.abandon(ConversationAbandonedEvent(it, ConversationPluginCanceler(false)))
             (it.forWhom as Player).sendLocale("conversation.cancel-via-disable")
+            true
         }
-        ConversationManager.runningConversations.clear()
     }
 
     private fun registerHandlers() {

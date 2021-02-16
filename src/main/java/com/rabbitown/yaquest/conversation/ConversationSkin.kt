@@ -48,9 +48,10 @@ class ConversationSkin private constructor(
                             val start = config.getString("text.each-line-start") ?: ""
                             val after = config.getString("text.after")
                             val choices = choice.invoke(player, start)
-                            val line = prompt.message.split("\n").size + choices.toString().split("\\n").size
+                            val message = autoLine(prompt.message).replace("\n", "\n$start")
+                            val line = message.split("\n").size + choices.toString().split("\\n").size
                             val missingLine = config.getInt("text.at-least-line") - line
-                            JSONText(PlainTextElement(start + prompt.message + after), choices).apply {
+                            JSONText(PlainTextElement(start + message + after), choices).apply {
                                 for (i in 1..missingLine) add(PlainTextElement("\n"))
                             }
                         }
@@ -89,7 +90,7 @@ class ConversationSkin private constructor(
                 JSONText().apply {
                     prompt.pointers.forEachIndexed { index, pointer ->
                         add(PlainTextElement(
-                            getString(player, btnText).replace("\n", "\n$start").arg(index + 1, pointer.showText)
+                            autoLine(getString(player, btnText)).replace("\n", "\n$start").arg(index + 1, pointer.showText)
                         ).apply {
                             clickEvent = ClickEvent(
                                 ClickEvent.Action.RUN_COMMAND, "/quest input ${pointer.requiredInput}"
@@ -125,6 +126,26 @@ class ConversationSkin private constructor(
             "translate" -> TODO()
             else -> error("Unknown type ${typedValue.type}")
         }.replace("\\n", "\n")
+    }
+
+    //FIXME
+    private fun autoLine(origin: String): String {
+        val autoLine = config.getInt("text.auto-line-chars")
+        if (autoLine < 1) return origin
+        val split = origin.split("\n")
+        val result = StringBuilder()
+        split.forEach {
+            for (i in it.indices step autoLine) {
+                val end = if (i + autoLine >= it.length) {
+                    if (i == 0) {
+                        result.append(it.substring(i until it.length))
+                        return@forEach
+                    } else it.length - 1
+                } else i + autoLine
+                result.append(it.substring(i..end), "\n")
+            }
+        }
+        return result.removeSuffix("\n").toString()
     }
 
     private fun cloneText() = baseText.clone() as JSONText

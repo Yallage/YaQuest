@@ -34,6 +34,7 @@ skins:
     text:
       each-line-start: '§7'
       at-least-line: 4
+      auto-line-chars: 20
     choice:
       pointer:
         button:

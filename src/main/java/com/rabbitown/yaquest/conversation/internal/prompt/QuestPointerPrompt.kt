@@ -1,6 +1,5 @@
 package com.rabbitown.yaquest.conversation.internal.prompt
 
-import com.rabbitown.yalib.module.chat.text.JSONText
 import com.rabbitown.yalib.module.nms.base.entity.EntityPlayer.Companion.asNMS
 import com.rabbitown.yaquest.TypedValue
 import com.rabbitown.yaquest.conversation.ConversationSkin
